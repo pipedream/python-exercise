@@ -12,7 +12,14 @@ DATADIR="data"
 
 # FUNCTIONS
 
+def find_data_files(DIR=DATADIR):
+	return filelist
 
+def missing_gender(LINE):
+	return False
+
+def fix_gender(FILE, LINE)
+	return file	
 
 # MAIN
 if __name__ == "__main__":
