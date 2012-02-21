@@ -18,7 +18,7 @@ def find_data_files(DIR=DATADIR):
 	return filelist
 
 def missing_gender(LINE):
-	# return True if contains "Sex: N" else
+	if "Sex: N" in LINE: return True
 	return False
 
 def fix_gender(FILE, LINE)
