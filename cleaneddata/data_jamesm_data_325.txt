@@ -2,7 +2,7 @@
 Reported: Tue Aug 23 12:54:20 2011
 Subject: scaryBeet260
 Year/month of birth: 1999/10
-Sex: N
+Sex: M
 CI type: 23
 Volume: 7
 Range: 10

@@ -2,7 +2,7 @@
 Reported: Mon May 16 08:53:11 2011
 Subject: babyMcCartney404
 Year/month of birth: 1997/03
-Sex: N
+Sex: M
 CI type: 20
 Volume: 4
 Range: 8

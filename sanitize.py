@@ -8,21 +8,17 @@ by replacing Sex: N with Sex: M
 import os
 
 # CONSTANTS
-DATADIR="cleaneddata"
-
-# FUNCTIONS
-def find_data_files(DIR=DATADIR):
-	return os.listdir(DIR)
-
-def missing_gender(LINE):
-	if "Sex: N" in LINE: return True
-	return False
-
-def fix_gender(FILE, LINE)
-	# given FILE and LINE replace LINE with LINE(remove :N replace :M)
-	return file	
+DIR="cleaneddata"
 
 # MAIN
 if __name__ == "__main__":
-	print "this is sanitize.py"
-	# loop through and do the necessary
+	for DATFILE in os.listdir(DIR):
+		F = open(DIR + "/" + DATFILE, "rw+")
+		L = F.readlines()
+		try:
+			L[L.index("Sex: N\n")] = "Sex: M\n"
+			F.seek(0)
+			F.writelines(L)
+			F.close()
+		except ValueError:
+			F.close()
