@@ -8,14 +8,11 @@ by replacing Sex: N with Sex: M
 import os
 
 # CONSTANTS
-DATADIR="data"
+DATADIR="cleaneddata"
 
 # FUNCTIONS
-
 def find_data_files(DIR=DATADIR):
-	# exlcude NOTES?
-	# include filenames with at least two consecutive digits?
-	return filelist
+	return os.listdir(DIR)
 
 def missing_gender(LINE):
 	if "Sex: N" in LINE: return True
