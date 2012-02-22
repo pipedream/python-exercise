@@ -4,4 +4,5 @@ import ratings
 
 data = inputdata.raw_scores
 r = ratings.ratings(data)
-print r.myratings
+result = r.recommendations()
+print result

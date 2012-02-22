@@ -28,11 +28,28 @@ class ratings(object):
   self.papers.sort()
 
  def recommendations():
-  return None
-  # calculate and return recommendations
+  allrecommendations = {}
+  for person in self.persons:
+	minimum = len(self.papers)*25+1
+	for otherperson in self.persons.remove(person):
+		closest = otherperson
+		tmp = compare_ratings(person, otherperson)
+		if tmp < minimum:
+			closest = otherperson
+			minimum = tmp
+  	notread = np.where(np.array(self.myratings[person] == 0))
+  	maxindex = np.where(self.myratings[otherperson][notread] == self.myratings[otherperson][notread].max())
+  	allrecommendations[person] = self._data[otherperson][maxindex]
+  return allrecommendations
 
  def compare_ratings(person1, person2):
+	# only check non-zero ratings
 	indices = np.where(self.myratings[person1] != 0) or np.where(self.myratings[person2] != 0)
-	#comparison1 = self.
-	return np.sqrt(np.sum((self.myratings[person1] - self.myratings[person2])**2))
+	if len(indices) == 0: return len(self.papers)*25+1 #5 is max difference;no basis to compare
+	cmp1 = self.myratings[person1][indices]
+	cmp2 = self.myratings[person2][indices]
+	return np.linalg.norm(self.myratings[cmp1] - self.myratings[cmp2])
 
+# Alternative distances:
+# pearson
+# tanimoto scipy.spatial.distance.rogerstanimoto
