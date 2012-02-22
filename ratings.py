@@ -31,4 +31,8 @@ class ratings(object):
   return None
   # calculate and return recommendations
 
+ def compare_ratings(person1, person2):
+	indices = np.where(self.myratings[person1] != 0) or np.where(self.myratings[person2] != 0)
+	#comparison1 = self.
+	return np.sqrt(np.sum((self.myratings[person1] - self.myratings[person2])**2))
 
