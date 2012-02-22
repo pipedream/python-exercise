@@ -27,20 +27,6 @@ class ratings(object):
      self.papers.append(paper)
   self.papers.sort()
 
- def recommendations():
-  allrecommendations = {}
-  for person in self.persons:
-	minimum = len(self.papers)*25+1
-	for otherperson in self.persons.remove(person):
-		closest = otherperson
-		tmp = compare_ratings(person, otherperson)
-		if tmp < minimum:
-			closest = otherperson
-			minimum = tmp
-  	notread = np.where(np.array(self.myratings[person] == 0))
-  	maxindex = np.where(self.myratings[otherperson][notread] == self.myratings[otherperson][notread].max())
-  	allrecommendations[person] = self._data[otherperson][maxindex]
-  return allrecommendations
 
  def compare_ratings(person1, person2):
 	# only check non-zero ratings
@@ -49,6 +35,22 @@ class ratings(object):
 	cmp1 = self.myratings[person1][indices]
 	cmp2 = self.myratings[person2][indices]
 	return np.linalg.norm(self.myratings[cmp1] - self.myratings[cmp2])
+
+ def recommendations():
+  return None
+ #import pdb; pdb.set_trace()
+ #allrecommendations = {}
+ #for person in self.persons:
+ #      minimum = len(self.papers)*25+1
+ #      for otherperson in self.persons.remove(person):
+ #      	tmp = compare_ratings(person, otherperson)
+ #      	if tmp < minimum:
+ #      		closest = otherperson
+ #      		minimum = tmp
+ #	notread = np.where(np.array(self.myratings[person] == 0))
+ #	maxindex = np.where(self.myratings[otherperson][notread] == self.myratings[otherperson][notread].max())
+ #	allrecommendations[person] = self._data[otherperson][maxindex]
+ #return allrecommendations
 
 # Alternative distances:
 # pearson
