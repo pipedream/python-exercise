@@ -41,7 +41,7 @@ class ratings(object):
    minimum = len(self.papers)*25+1
    notread = np.array([])
    for otherperson in self.persons:
-    if otherperson == person: break;
+    if otherperson == person: continue;
     tmp = self.compare_ratings(person, otherperson)
     if tmp < minimum:
      closest = otherperson
@@ -51,7 +51,7 @@ class ratings(object):
     allrecommendations[person] = "No recommendation"
    else:
     maxindex = np.where(self.myratings[self.persons.index(otherperson)][notread] == self.myratings[self.persons.index(otherperson)][notread].max())
-    allrecommendations[person] = self._data[otherperson][maxindex]
+    allrecommendations[person] = self.papers[int(maxindex[0])]
   return allrecommendations
 
 # Alternative distances:
