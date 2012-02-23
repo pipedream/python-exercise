@@ -45,8 +45,11 @@ class ratings(object):
         	if tmp < minimum:
         		closest = otherperson
         		minimum = tmp
-  	notread = np.where(np.array(self.myratings == 0))
-  	maxindex = np.where(self.myratings[otherperson][notread] == self.myratings[otherperson][notread].max())
+  	notread = np.where(np.array(self.myratings[self.persons.index(otherperson)] == 0))
+	print self.myratings
+	print self.persons.index(otherperson)
+	print notread
+  	maxindex = np.where(self.myratings[self.persons.index(otherperson)][notread] == self.myratings[self.persons.index(otherperson)][notread].max())
   	allrecommendations[person] = self._data[otherperson][maxindex]
   return allrecommendations
 
