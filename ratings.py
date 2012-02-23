@@ -28,29 +28,34 @@ class ratings(object):
     self.myratings[self.persons.index(person),self.papers.index(paper)] = self._data[person][paper]
 
  def compare_ratings(person1, person2):
-	# only check non-zero ratings
-	indices = np.where(self.myratings[person1] != 0) or np.where(self.myratings[person2] != 0)
-	if len(indices) == 0: return len(self.papers)*25+1 #5 is max difference;no basis to compare
-	cmp1 = self.myratings[person1][indices]
-	cmp2 = self.myratings[person2][indices]
-	return np.linalg.norm(self.myratings[cmp1] - self.myratings[cmp2])
+ # only check non-zero ratings
+  indices = np.where(self.myratings[person1] != 0) or np.where(self.myratings[person2] != 0)
+  if len(indices) == 0: return len(self.papers)*25+1 #5 is max difference;no basis to compare
+  cmp1 = self.myratings[person1][indices]
+  cmp2 = self.myratings[person2][indices]
+  return np.linalg.norm(self.myratings[cmp1] - self.myratings[cmp2])
 
  def recommendations(self):
   allrecommendations = {}
   for person in self.persons:
-        minimum = len(self.papers)*25+1
-        for otherperson in self.persons:
-		if otherperson == person: break;
-        	tmp = compare_ratings(person, otherperson)
-        	if tmp < minimum:
-        		closest = otherperson
-        		minimum = tmp
-  	notread = np.where(np.array(self.myratings[self.persons.index(otherperson)] == 0))
-	print self.myratings
-	print self.persons.index(otherperson)
-	print notread
-  	maxindex = np.where(self.myratings[self.persons.index(otherperson)][notread] == self.myratings[self.persons.index(otherperson)][notread].max())
-  	allrecommendations[person] = self._data[otherperson][maxindex]
+   minimum = len(self.papers)*25+1
+   notread = np.array([])
+   for otherperson in self.persons:
+    if otherperson == person: break;
+    tmp = self.compare_ratings(person, otherperson)
+    if tmp < minimum:
+     closest = otherperson
+     minimum = tmp
+     notread = np.where(np.array(self.myratings[self.persons.index(otherperson)] == 0))[0]
+   print self.myratings
+   print self.persons.index(otherperson)
+   print notread
+   print len(notread)
+   if len(notread) == 0:
+    allrecommendations[person] = "No recommendation"
+   else:
+    maxindex = np.where(self.myratings[self.persons.index(otherperson)][notread] == self.myratings[self.persons.index(otherperson)][notread].max())
+    allrecommendations[person] = self._data[otherperson][maxindex]
   return allrecommendations
 
 # Alternative distances:
