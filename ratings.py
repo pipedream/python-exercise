@@ -9,12 +9,6 @@ class ratings(object):
   self.get_paper_ids()
   self.get_ratings_array()
 
- def get_ratings_array(self):
-  self.myratings = np.zeros((len(self.persons),len(self.papers)), dtype = float)
-  for person in self.persons:
-   for paper in self._data[person].keys():
-    self.myratings[self.persons.index(person),self.papers.index(paper)] = self._data[person][paper]
-
  def get_person_ids(self):
   self.persons = self._data.keys()
   self.persons.sort()
@@ -27,6 +21,11 @@ class ratings(object):
      self.papers.append(paper)
   self.papers.sort()
 
+ def get_ratings_array(self):
+  self.myratings = np.zeros((len(self.persons),len(self.papers)), dtype = float)
+  for person in self.persons:
+   for paper in self._data[person].keys():
+    self.myratings[self.persons.index(person),self.papers.index(paper)] = self._data[person][paper]
 
  def compare_ratings(person1, person2):
 	# only check non-zero ratings
@@ -36,22 +35,22 @@ class ratings(object):
 	cmp2 = self.myratings[person2][indices]
 	return np.linalg.norm(self.myratings[cmp1] - self.myratings[cmp2])
 
- def recommendations():
-  return None
- #import pdb; pdb.set_trace()
- #allrecommendations = {}
- #for person in self.persons:
- #      minimum = len(self.papers)*25+1
- #      for otherperson in self.persons.remove(person):
- #      	tmp = compare_ratings(person, otherperson)
- #      	if tmp < minimum:
- #      		closest = otherperson
- #      		minimum = tmp
- #	notread = np.where(np.array(self.myratings[person] == 0))
- #	maxindex = np.where(self.myratings[otherperson][notread] == self.myratings[otherperson][notread].max())
- #	allrecommendations[person] = self._data[otherperson][maxindex]
- #return allrecommendations
+ def recommendations(self):
+  allrecommendations = {}
+  for person in self.persons:
+        minimum = len(self.papers)*25+1
+        for otherperson in self.persons:
+		if otherperson == person: break;
+        	tmp = compare_ratings(person, otherperson)
+        	if tmp < minimum:
+        		closest = otherperson
+        		minimum = tmp
+  	notread = np.where(np.array(self.myratings == 0))
+  	maxindex = np.where(self.myratings[otherperson][notread] == self.myratings[otherperson][notread].max())
+  	allrecommendations[person] = self._data[otherperson][maxindex]
+  return allrecommendations
 
 # Alternative distances:
 # pearson
 # tanimoto scipy.spatial.distance.rogerstanimoto
+
